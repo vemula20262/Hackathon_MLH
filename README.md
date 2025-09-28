@@ -123,8 +123,9 @@ Visit: `http://localhost:3000`
 - Python Flask
 - TensorFlow / Keras (MobileNet)
 - Google Gemini API
-- Serper.dev (Google search via API)
-- Custom Web Scraping (Clause + BFS Crawler)
+- Serper.dev API – for retrieving Google search results programmatically
+- Custom Web Crawler – implemented with *Breadth-First Search (BFS)* for structured page traversal
+- Clause-based Scraper – used for extracting relevant sustainability data from crawled web pages
 
 ---
 
