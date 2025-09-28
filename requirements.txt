@@ -1,3 +1,12 @@
 Flask==2.3.3
 google-generativeai==0.3.2
 Werkzeug==2.3.7
+
+# --- Production Server ---
+gunicorn                # Required to serve Flask in a production environment like Cloud Run
+
+# --- Machine Learning Dependencies ---
+numpy
+# IMPORTANT: Specify the exact TensorFlow version you trained and saved your model with.
+tensorflow==2.20.0      # Example version. Replace with yours.
+Pillow                  # Required by TensorFlow's load_img and img_to_array functions
