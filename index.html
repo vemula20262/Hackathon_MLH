@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoScan - Carbon Footprint Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-leaf"></i>
+                <h1>EcoScan</h1>
+            </div>
+            <p class="tagline">Calculate carbon footprint from your photos and discover eco-friendly alternatives</p>
+            
+            <!-- Authentication Section -->
+            <div class="auth-section" id="authSection">
+                <div class="auth-buttons">
+                    <button class="auth-btn" id="loginBtn" onclick="showLogin()">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Login
+                    </button>
+                    <button class="auth-btn" id="registerBtn" onclick="showRegister()">
+                        <i class="fas fa-user-plus"></i>
+                        Register
+                    </button>
+                </div>
+            </div>
+            
+            <!-- User Info (when logged in) -->
+            <div class="user-info" id="userInfo" style="display: none;">
+                <div class="user-details">
+                    <i class="fas fa-user-circle"></i>
+                    <span id="userName">User</span>
+                </div>
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </button>
+            </div>
+        </header>
+
+        <!-- Login Modal -->
+        <div class="modal" id="loginModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Login to EcoScan</h2>
+                    <button class="close-btn" onclick="closeModal('loginModal')">&times;</button>
+                </div>
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="loginEmail">Email:</label>
+                        <input type="email" id="loginEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password:</label>
+                        <input type="password" id="loginPassword" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Login</button>
+                </form>
+                <p class="modal-footer">
+                    Don't have an account? <a href="#" onclick="switchToRegister()">Register here</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Register Modal -->
+        <div class="modal" id="registerModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Create Account</h2>
+                    <button class="close-btn" onclick="closeModal('registerModal')">&times;</button>
+                </div>
+                <form id="registerForm" onsubmit="handleRegister(event)">
+                    <div class="form-group">
+                        <label for="registerName">Full Name:</label>
+                        <input type="text" id="registerName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail">Email:</label>
+                        <input type="email" id="registerEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">Password:</label>
+                        <input type="password" id="registerPassword" required minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password:</label>
+                        <input type="password" id="confirmPassword" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Register</button>
+                </form>
+                <p class="modal-footer">
+                    Already have an account? <a href="#" onclick="switchToLogin()">Login here</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main-content" id="mainContent" style="display: none;">
+            <!-- Upload Section -->
+            <section class="upload-section">
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <h3>Upload Your Photo</h3>
+                        <p>Drag and drop an image or click to browse</p>
+                        <input type="file" id="photoInput" accept="image/*" hidden>
+                        <button class="upload-btn" onclick="document.getElementById('photoInput').click()">
+                            Choose Photo
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Photo Preview -->
+                <div class="photo-preview" id="photoPreview" style="display: none;">
+                    <img id="previewImage" src="" alt="Uploaded photo">
+                    <div class="preview-actions">
+                        <button class="analyze-btn" onclick="analyzePhoto()">
+                            <i class="fas fa-search"></i>
+                            Analyze Carbon Footprint
+                        </button>
+                        <button class="change-btn" onclick="changePhoto()">
+                            <i class="fas fa-edit"></i>
+                            Change Photo
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Loading Section -->
+            <section class="loading-section" id="loadingSection" style="display: none;">
+                <div class="loading-spinner">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <h3>Analyzing your photo...</h3>
+                    <p>Detecting materials and calculating carbon footprint</p>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <div class="results-header">
+                    <h2>Analysis Results</h2>
+                    <div class="carbon-score">
+                        <span class="score-label">Carbon Footprint Score</span>
+                        <span class="score-value" id="carbonScore">0</span>
+                        <span class="score-unit">kg CO₂</span>
+                    </div>
+                </div>
+
+                <!-- Detected Materials -->
+                <div class="materials-section">
+                    <h3>Detected Materials</h3>
+                    <div class="materials-grid" id="materialsGrid">
+                        <!-- Materials will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Eco-Friendly Alternatives -->
+                <div class="alternatives-section">
+                    <h3>Eco-Friendly Alternatives</h3>
+                    <div class="alternatives-grid" id="alternativesGrid">
+                        <!-- Alternatives will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="btn-primary" onclick="analyzeNewPhoto()">
+                        <i class="fas fa-plus"></i>
+                        Analyze Another Photo
+                    </button>
+                    <button class="btn-secondary" onclick="shareResults()">
+                        <i class="fas fa-share"></i>
+                        Share Results
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 EcoScan - Making the world greener, one photo at a time</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

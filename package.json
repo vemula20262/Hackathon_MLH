@@ -1,0 +1,41 @@
+{
+  "name": "ecoscan-carbon-calculator",
+  "version": "1.0.0",
+  "description": "A web application that analyzes photos to detect materials and calculate carbon footprint, then suggests eco-friendly alternatives",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server -p 8000 -o",
+    "dev": "npx live-server --port=8000 --open=/index.html",
+    "build": "echo 'No build process needed for static files'",
+    "test": "echo 'No tests specified'"
+  },
+  "keywords": [
+    "carbon-footprint",
+    "sustainability",
+    "environment",
+    "machine-learning",
+    "computer-vision",
+    "eco-friendly",
+    "materials",
+    "hackathon",
+    "mlh",
+    "asu"
+  ],
+  "author": "Your Team Name",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "live-server": "^1.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/ecoscan-carbon-calculator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/ecoscan-carbon-calculator/issues"
+  },
+  "homepage": "https://github.com/yourusername/ecoscan-carbon-calculator#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
