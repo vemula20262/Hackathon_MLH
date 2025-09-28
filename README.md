@@ -2,7 +2,7 @@
 
 Carbon Cruncher AI is a sustainability-focused image analysis tool that uses a hybrid of Machine Learning and Generative AI to identify common household waste items, estimate their carbon footprint, and suggest environmentally friendly alternatives.
 
-![Demo Screenshot](./Frontend/public/logo192.png)
+![Demo Screenshot](./Frontend/public/image.png)
 Youtube video: https://youtu.be/4_E2qDs5Qcc
 ---
 
